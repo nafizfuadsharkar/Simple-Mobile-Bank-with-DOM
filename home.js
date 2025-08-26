@@ -1,5 +1,5 @@
 const validPin = 1234;
-
+const transactionData = [];
 // function to get input values
 function getInputValueNumber(id) {
   const inputFieldValueNumber = parseInt(document.getElementById(id).value);
@@ -71,7 +71,14 @@ document
     const totalNewAvailableBalance = amount + availableBalance;
 
     setInnerText(totalNewAvailableBalance);
+
+    const data = {
+      name: "Add Money",
+      date: new Date().toLocaleDateString(),
+    };
+    transactionData.push(data);
   });
+
 //   cashout money feature
 document
   .getElementById("withdraw-btn")
@@ -93,10 +100,50 @@ document
       return;
     }
 
+    // amount validation
+    if (amount <= 0 || amount > availableBalance) {
+      alert("Invalid Amount");
+      return;
+    }
+
     // update the balance
     const totalNewAvailableBalance = availableBalance - amount;
 
     setInnerText(totalNewAvailableBalance);
+
+    const data = {
+      name: "Cash Out",
+      date: new Date().toLocaleDateString(),
+    };
+    transactionData.push(data);
+  });
+
+// transaction list
+document
+  .getElementById("transaction-button")
+  .addEventListener("click", function () {
+    const transactionContainer = document.getElementById(
+      "transaction-container"
+    );
+    transactionContainer.innerText = "";
+    for (const data of transactionData) {
+      const div = document.createElement("div");
+      div.innerHTML = `
+      <div class="bg-white rounded-xl p-3 flex justify-between items-center mt-3">
+          <div class="flex items-center">
+            <div class="bg-[#f4f5f7]  p-3 rounded-full">
+              <img src="./assets/wallet1.png" class="mx-auto" alt="">
+            </div>
+            <div class="ml-3">
+              <h1>${data.name}</h1>
+              <p>${data.date}</p>
+            </div>
+          </div>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+    `;
+      transactionContainer.appendChild(div);
+    }
   });
 
 //   toggoling features
