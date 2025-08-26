@@ -17,10 +17,32 @@ function getInnerText(id) {
   return elementValueNumber;
 }
 
-// function to set inner text 
-function setInnerText(value){
-  const availableBalanceElement = document.getElementById('available-balance').innerText = value;
-  return availableBalanceElement; 
+// function to set inner text
+function setInnerText(value) {
+  const availableBalanceElement = (document.getElementById(
+    "available-balance"
+  ).innerText = value);
+  return availableBalanceElement;
+}
+// function to handle toggle
+function handleToggle(id) {
+  const forms = document.getElementsByClassName("form");
+  for (const form of forms) {
+    form.style.display = "none";
+  }
+  document.getElementById(id).style.display = "block";
+}
+// function to handle button design
+function handleButton(id) {
+  const fomBtns = document.getElementsByClassName("form-btn");
+  for (const btn of fomBtns) {
+    btn.classList.remove("border-[#0874f2]", "bg-[#0874f20d]");
+    btn.classList.add("border-gray-300");
+  }
+  document.getElementById(id).classList.remove("border-gray-300");
+  document
+    .getElementById(id)
+    .classList.add("border-[#0874f2]", "bg-[#0874f20d]");
 }
 
 // add money features
@@ -29,7 +51,7 @@ document
   .addEventListener("click", function (event) {
     event.preventDefault();
 
-    const bank = inputField("bank");
+    const bank = getInputValue("bank");
     const accountNumber = document.getElementById("account-number").value;
     const amount = getInputValueNumber("add-amount");
     const pin = getInputValueNumber("add-pin");
@@ -80,12 +102,57 @@ document
 //   toggoling features
 
 document.getElementById("add-money").addEventListener("click", function () {
-  document.getElementById("cash-out-parent").style.display = "none";
-  document.getElementById("add-money-parent").style.display = "block";
+  // const forms = document.getElementsByClassName("form");
+  // for (const form of forms) {
+  //   form.style.display = "none";
+  // }
+  // document.getElementById("add-money-parent").style.display = "block";
+  handleToggle("add-money-parent");
+  handleButton("add-money");
 });
 document
   .getElementById("cash-out-button")
   .addEventListener("click", function () {
-    document.getElementById("add-money-parent").style.display = "none";
-    document.getElementById("cash-out-parent").style.display = "block";
+    //   const forms = document.getElementsByClassName("form");
+    // for (const form of forms) {
+    //   form.style.display = "none";
+    // }
+    // document.getElementById("cash-out-parent").style.display = "block";
+    handleToggle("cash-out-parent");
+    handleButton("cash-out-button");
+  });
+
+document
+  .getElementById("transfer-button")
+  .addEventListener("click", function (event) {
+    // const forms = document.getElementsByClassName("form");
+    // for (const form of forms) {
+    //   form.style.display = "none";
+    // }
+    // document.getElementById("transfer-money-parent").style.display = "block";
+    handleToggle("transfer-money-parent");
+    handleButton("transfer-button");
+  });
+document
+  .getElementById("bonus-button")
+  .addEventListener("click", function (event) {
+    // const forms = document.getElementsByClassName("form");
+    // for (const form of forms) {
+    //   form.style.display = "none";
+    // }
+    // document.getElementById("get-bonus-parent").style.display = "block";
+    handleToggle("get-bonus-parent");
+    handleButton("bonus-button");
+  });
+document
+  .getElementById("pay-bill-button")
+  .addEventListener("click", function (event) {
+    handleToggle("pay-bill-parent");
+    handleButton("pay-bill-button");
+  });
+document
+  .getElementById("transaction-button")
+  .addEventListener("click", function (event) {
+    handleToggle("transaction-parent");
+    handleButton("transaction-button");
   });
